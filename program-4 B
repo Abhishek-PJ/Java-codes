@@ -1,0 +1,58 @@
+import java.util.Scanner;
+
+// Abstract class Vehicle
+abstract class Vehicle {
+    // Abstract method to be implemented by subclasses
+   abstract void drive();
+}
+
+// Subclass Car implementing the drive method
+class Car extends Vehicle {
+    @Override
+    void drive() {
+        System.out.println("Driving a car...");
+        System.out.println("Features: 4 wheels, air conditioning, comfortable seating for 4-5 passengers.");
+    }
+}
+
+// Subclass Motorcycle implementing the drive method
+class Motorcycle extends Vehicle {
+    @Override
+    void drive() {
+        System.out.println("Riding a motorcycle...");
+        System.out.println("Features: 2 wheels, lightweight, fuel-efficient, and built for 1-2 passengers.");
+    }
+}
+
+// Main class with a menu-driven program
+public class VehicleDemo {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Car car = new Car(); // Car object
+        Motorcycle motorcycle = new Motorcycle(); // Motorcycle object
+
+        while (true) {
+            System.out.println("\n--- Vehicle Menu ---");
+            System.out.println("1. Drive a Car");
+            System.out.println("2. Ride a Motorcycle");
+            System.out.println("3. Exit");
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    car.drive(); // Call drive method of Car
+                    break;
+                case 2:
+                    motorcycle.drive(); // Call drive method of Motorcycle
+                    break;
+                case 3:
+                    System.out.println("Exiting the program. Goodbye!");
+                    scanner.close();
+                    return;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+}
