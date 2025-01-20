@@ -1,0 +1,83 @@
+import java.util.Scanner;
+
+// Abstract class Printer demonstrating abstraction
+abstract class Printer {
+    // Abstract methods
+    abstract void configure();
+    abstract void display();
+}
+
+// Subclass DotMatrix implementing the abstract methods
+class DotMatrix extends Printer {
+    @Override
+    void configure() {
+        System.out.println("Configuring DotMatrix printer...");
+        System.out.println("Setting print quality to low resolution.");
+        System.out.println("Adjusting ribbon tension.");
+        System.out.println("Enabling continuous paper feed mode.");
+    }
+
+    @Override
+    void display() {
+        System.out.println("This is a DotMatrix printer, ideal for basic printing needs.");
+        System.out.println("Features: Low resolution, continuous paper feed, economical.");
+    }
+}
+
+// Subclass LaserJet implementing the abstract methods
+class LaserJet extends Printer {
+    @Override
+    void configure() {
+        System.out.println("Configuring LaserJet printer...");
+        System.out.println("Setting print quality to high resolution.");
+        System.out.println("Calibrating toner levels.");
+        System.out.println("Enabling duplex printing mode.");
+    }
+
+    @Override
+    void display() {
+        System.out.println("This is a LaserJet printer, ideal for high-quality printing.");
+        System.out.println("Features: High resolution, duplex printing, fast print speed.");
+    }
+}
+
+// Main class with a menu-driven program
+public class Printerselection {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        DotMatrix dotMatrix = new DotMatrix();
+        LaserJet laserJet = new LaserJet();
+
+        while (true) {
+            System.out.println("\n--- Printer Menu ---");
+            System.out.println("1. Configure DotMatrix Printer");
+            System.out.println("2. Display DotMatrix Printer Details");
+            System.out.println("3. Configure LaserJet Printer");
+            System.out.println("4. Display LaserJet Printer Details");
+            System.out.println("5. Exit");
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    dotMatrix.configure();
+                    break;
+                case 2:
+                    dotMatrix.display();
+                    break;
+                case 3:
+                    laserJet.configure();
+                    break;
+                case 4:
+                    laserJet.display();
+                    break;
+                case 5:
+                    System.out.println("Exiting the program. Goodbye!");
+                    scanner.close();
+                    return;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+}
