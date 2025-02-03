@@ -1,0 +1,67 @@
+package programs;
+
+import java.util.Scanner;
+
+interface personal {
+    void showpersonaldetails();
+}
+
+interface official {
+    void showofficialdetails();
+}
+
+class Employee implements personal, official {
+
+    public String name;
+    public int age;
+    public String designation;
+    public float salary;
+
+    Employee(String name, int age, String designation, float salary) {
+        this.name = name;
+        this.age = age;
+        this.designation = designation;
+        this.salary = salary;
+    }
+
+    @Override
+    public void showpersonaldetails() {
+        System.out.println("Personal details:");
+        System.out.println("Name is: " + name);
+        System.out.println("Age is: " + age);
+    }
+
+    @Override
+    public void showofficialdetails() {
+        System.out.println("Official details:");
+        System.out.println("Designation is: " + designation);
+        System.out.println("Salary is: " + salary);
+    }
+}
+
+ class test {
+
+    public static void main(String[] args) {
+        try (Scanner sc = new Scanner(System.in)) {
+
+            System.out.println("Enter employee name:");
+            String name = sc.nextLine();
+
+            System.out.println("Enter employee age:");
+            int age = sc.nextInt();
+            sc.nextLine(); // Consume newline
+
+            System.out.println("Enter employee Designation:");
+            String designation = sc.nextLine();
+
+            System.out.println("Enter employee Salary:");
+            float salary = sc.nextFloat();
+            sc.nextLine(); // Consume newline
+
+            Employee emp1 = new Employee(name, age, designation, salary);
+
+            emp1.showpersonaldetails();
+            emp1.showofficialdetails();
+        }
+    }
+}
