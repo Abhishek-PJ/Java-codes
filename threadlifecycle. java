@@ -1,0 +1,104 @@
+import java.util.Scanner;
+
+class Thread1 extends Thread {
+    public void run() {
+        for (int i = 1; i <= 5; i++) {
+            System.out.println("Thread1: " + i);
+            try {
+                Thread.sleep(2000); // Simulating blocking state
+            } catch (InterruptedException e) {
+                System.out.println("Thread1 Interrupted");
+            }
+        }
+    }
+}
+
+class Thread2 extends Thread {
+    public void run() {
+        for (int i = 10; i <= 15; i++) {
+            System.out.println("Thread2: " + i);
+            try {
+                Thread.sleep(2000); // Simulating blocking state
+            } catch (InterruptedException e) {
+                System.out.println("Thread2 Interrupted");
+            }
+        }
+    }
+}
+
+public class ThreadDemo {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) { // Infinite loop for menu
+            System.out.println("\n--- Thread Execution Menu ---");
+            System.out.println("1. Run threads SEQUENTIALLY (Thread1 -> Thread2)");
+            System.out.println("2. Run threads CONCURRENTLY (Parallel Execution)");
+            System.out.println("3. Exit");
+            System.out.print("Enter your choice: ");
+            
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.println("Running threads SEQUENTIALLY...");
+                    runSequential();
+                    break;
+
+                case 2:
+                    System.out.println("Running threads CONCURRENTLY...");
+                    runConcurrent();
+                    break;
+
+                case 3:
+                    System.out.println("Exiting program...");
+                    scanner.close();
+                    System.exit(0); // Exits the program
+                    break;
+
+                default:
+                    System.out.println("Invalid choice. Please enter 1, 2, or 3.");
+            }
+        }
+    }
+
+    // Method for SEQUENTIAL execution
+    public static void runSequential() {
+        Thread1 t1 = new Thread1();
+        Thread2 t2 = new Thread2();
+
+        t1.start();
+        try {
+            t1.join(); // Wait for Thread1 to finish before starting Thread2
+        } catch (InterruptedException e) {
+            System.out.println("Main thread interrupted");
+        }
+
+        t2.start();
+        try {
+            t2.join(); // Wait for Thread2 to finish before exiting
+        } catch (InterruptedException e) {
+            System.out.println("Main thread interrupted");
+        }
+
+        System.out.println("Both threads have finished execution.");
+    }
+
+    // Method for CONCURRENT execution
+    public static void runConcurrent() {
+        Thread1 t1 = new Thread1();
+        Thread2 t2 = new Thread2();
+
+        t1.start();
+        t2.start(); // Both threads run at the same time
+
+        try {
+            t1.join();
+            t2.join(); // Ensures the main thread waits for both to finish
+        } catch (InterruptedException e) {
+            System.out.println("Main thread interrupted");
+        }
+
+        System.out.println("Both threads have finished execution.");
+    }
+}
